@@ -13,7 +13,7 @@ Use Maven to package a single jar file, bundled with all dependencies:
 then go to /target/ and find **OwlPackager-0.0.1-SNAPSHOT-jar-with-dependencies.jar** file.
 
 ## **RUN** ##
-Use -help to see the list of arguments:
+OwlPackager is a command line application. Use -help to see the list of arguments:
 
     java -jar OwlPackager-0.0.1-SNAPSHOT-jar-with-dependencies.jar -help
 
