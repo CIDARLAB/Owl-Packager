@@ -53,17 +53,14 @@ public class GenBankExporter {
 	        	if(part.getPartType()==PartType.CDS){
 		        	if(part.getOrientation() != Orientation.REVERSE){
 		        		gbkFlatFile +="\n     gene            " + coord.getStartX() + ".." + coord.getEndX();
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+		        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 		        		gbkFlatFile +="\n     " + part.getPartType() + "             " + coord.getStartX() + ".." + coord.getEndX();
 		        	} else{
 		        		gbkFlatFile +="\n     gene            complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+		        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 		        		gbkFlatFile +="\n     " + part.getPartType() + "             complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
 		        	}
-	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 		        	gbkFlatFile +="\n                     /product=\"gp" + part.getPartProperties().getName() +"\"";
 		        	
 		        	ProteinSequence protein = new DNASequence(part.getPartProperties().getSequence()).getRNASequence().getProteinSequence();
@@ -83,8 +80,7 @@ public class GenBankExporter {
 		        	} else{
 		        		gbkFlatFile +="\n     promoter        complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
 		        	}
-		        	gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+		        	gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 	        		
 	        	} else if (part.getPartType()==PartType.TERMINATOR){
 		        	if(part.getOrientation() != Orientation.REVERSE){
@@ -92,8 +88,7 @@ public class GenBankExporter {
 		        	} else{
 		        		gbkFlatFile +="\n     terminator      complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
 		        	}
-	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 	        		
 	        	} else if (part.getPartType()==PartType.RIBOZYME){
 		        	if(part.getOrientation() != Orientation.REVERSE){
@@ -101,8 +96,7 @@ public class GenBankExporter {
 		        	} else{
 		        		gbkFlatFile +="\n     ncRNA           complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
 		        	}  
-	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 	        		
 	        	} else if (part.getPartType()==PartType.RBS){
 		        	if(part.getOrientation() != Orientation.REVERSE){
@@ -110,8 +104,7 @@ public class GenBankExporter {
 		        	} else{
 		        		gbkFlatFile +="\n     RBS             complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
 		        	}  
-	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		gbkFlatFile += makeGeneAndLocusAnnotation(part, iterIndex);
 	        	}
 	    }
         	
@@ -135,6 +128,14 @@ public class GenBankExporter {
         
         return gbkFlatFile;
     }
+	
+	private static String makeGeneAndLocusAnnotation(Part part, int position){
+		String s = "";
+		s += "\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
+		s += "\n                     /locus_tag=\"" + uniqueId + "_" + position + "\"";
+		
+		return s;
+	}
 	
 	private static String getProteinToAnnotation(ProteinSequence protein){
 		String annotation = "";
