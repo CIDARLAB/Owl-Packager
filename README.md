@@ -1,4 +1,4 @@
-**Owl-Packager**
+**Owl-CAT: Packager**
 ------------
 OwlPackager is one of the three base module application of Owl-CAT (Cluster Assembly Tool) Software: the Designer, Builder, and Packager.
 
