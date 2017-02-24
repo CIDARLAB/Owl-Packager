@@ -80,43 +80,38 @@ public class GenBankExporter {
 	        	} else if(part.getPartType()==PartType.PROMOTER){
 		        	if(part.getOrientation() != Orientation.REVERSE){
 		        		gbkFlatFile +="\n     promoter        " + coord.getStartX() + ".." + coord.getEndX();
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	} else{
 		        		gbkFlatFile +="\n     promoter        complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
-		        	}        	
+		        	}
+		        	gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
+	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		
 	        	} else if (part.getPartType()==PartType.TERMINATOR){
 		        	if(part.getOrientation() != Orientation.REVERSE){
 		        		gbkFlatFile +="\n     terminator      " + coord.getStartX() + ".." + coord.getEndX();
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	} else{
 		        		gbkFlatFile +="\n     terminator      complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
-		        	}  
+		        	}
+	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
+	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		
 	        	} else if (part.getPartType()==PartType.RIBOZYME){
 		        	if(part.getOrientation() != Orientation.REVERSE){
 		        		gbkFlatFile +="\n     ncRNA           " + coord.getStartX() + ".." + coord.getEndX();
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	} else{
 		        		gbkFlatFile +="\n     ncRNA           complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	}  
+	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
+	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
+	        		
 	        	} else if (part.getPartType()==PartType.RBS){
 		        	if(part.getOrientation() != Orientation.REVERSE){
 		        		gbkFlatFile +="\n     RBS             " + coord.getStartX() + ".." + coord.getEndX();
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	} else{
 		        		gbkFlatFile +="\n     RBS             complement(" + coord.getStartX() + ".." + coord.getEndX() + ")";
-		        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
-		        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 		        	}  
+	        		gbkFlatFile +="\n                     /gene=\"" + part.getPartProperties().getName() +"\"";
+	        		gbkFlatFile +="\n                     /locus_tag=\"" + uniqueId + "_" + iterIndex + "\"";
 	        	}
 	    }
         	
