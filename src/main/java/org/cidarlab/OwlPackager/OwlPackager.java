@@ -15,6 +15,7 @@ import org.cidarlab.OwlPackager.Util.CmdLineParser;
 import org.cidarlab.OwlPackager.Util.ShellExec;
 import org.cidarlab.OwlPackager.Util.Utilities;
 import org.cidarlab.OwlPackager.Util.ZipFolder;
+import org.cidarlab.OwlPackager.adaptors.DNAplotlibClient;
 import org.cidarlab.OwlPackager.adaptors.DeviceSplitter;
 import org.cidarlab.OwlPackager.adaptors.FastaFileFactory;
 import org.cidarlab.OwlPackager.adaptors.GenBankExporter;
@@ -112,14 +113,20 @@ public class OwlPackager {
         Map<String, Integer> deviceLengths = new HashMap<>();	        
         Map<String, String> deviceCompositions = new HashMap<>();
         
-        // This integer will be used to limit the number of devices for output
-        final int limit = 10;
         
         //get number of the assembled devices from the Eugene output Array[] file.
-        long devices = 0;
-		devices = RegExpDevice.getDeviceNumber(eugeneFile);
-		if(devices > limit){
-			System.err.println("The total number of assembled Genetic Constructs: " + devices + ". Only first " + limit +" constructs have been processed.");
+        long deviceNumber = 0;
+        boolean deviceLimit = false;
+		deviceNumber = RegExpDevice.getDeviceNumber(eugeneFile);
+        int limit = (int)deviceNumber;
+		if(deviceNumber > 50){
+			deviceLimit = true;
+			limit = 50;
+		}
+		
+		if(deviceLimit){
+			System.err.println("WARNING: The total number of assembled Genetic Constructs: " + deviceNumber + ". Only first " + limit +" constructs have been processed."
+								+ "Please reduce the number of parts that you supply");
 		}
 		
 		String[] dSections = DeviceSplitter.splitArrayIntoDevices(eugeneFile);
@@ -135,8 +142,13 @@ public class OwlPackager {
 			GeneticConstruct gc = GeneticConstructFactory.assembleGeneticConstruct(mySplit[0], mySplit[1]);
 			//System.out.println(gc.toString());
 			
-			// generate Pigeon Specification; send POST requests to Pigeon service
-			pigeonMap.put(gc.getName(), PigeonClient.generatePigeonScript(gc));
+			if(cmd.isWithPigeon()){
+				// generate Pigeon Specification; send POST requests to Pigeon service
+				pigeonMap.put(gc.getName(), PigeonClient.generatePigeonScript(gc));
+			} else {
+				// generate DNAplotlib specification
+				pigeonMap.put(gc.getName(), DNAplotlibClient.generateDNAplotlibParams(gc));
+			}
 			
 			// generate FASTA files
 	     	FastaFileFactory.createDeviceFastaFile(gc, outputDir);
@@ -157,9 +169,31 @@ public class OwlPackager {
 		}
 		
 		
-		// upload Pigeon images and save them in the project folder
+		
 		Map<String,String> images = new LinkedHashMap<String, String>();
-		images = PigeonClient.generateFile(pigeonMap, outputDir, limit);
+		if(cmd.isWithPigeon()){
+			// upload Pigeon images and save them in the project folder
+			System.out.println("withPigeon is "+cmd.isWithPigeon());
+			images = PigeonClient.generateFile(pigeonMap, outputDir, limit);
+		} else {
+			//generate DNAplotlib images
+			for(String key: pigeonMap.keySet()){
+				ShellExec shell = new ShellExec(true, false);
+				try {
+					int exitCode = shell.execute("python", outputDir.getAbsolutePath(), true, cmd.getDnaplotlib().getAbsolutePath(), "-input", pigeonMap.get(key), "-output", key+".png");
+					if(exitCode == 0){
+		            	// read png file and save its path to the map Device_name : Image_path.
+						File f = new File(outputDir.getAbsolutePath()+Utilities.getFileDivider()+key+".png");
+						images.put(key, f.getAbsolutePath());
+					} else {
+						System.err.println("PDF-LaTeX returned exit code = " + exitCode);
+						System.exit(1);
+					}
+				} catch (IOException e) {
+	            System.err.println("ERROR. DNAplotlib has failed. Reason: " + e.getMessage());
+				}
+			}
+		}
 		
 		// Generate PDF Datasheet
 		Datasheet datasheet = new Datasheet(project, images, outputDir.getPath(), deviceCompositions, gcContentMap, deviceLengths);

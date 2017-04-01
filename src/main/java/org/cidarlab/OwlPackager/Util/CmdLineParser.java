@@ -26,4 +26,10 @@ public class CmdLineParser {
 	@Parameter(names = "-latex", description = "Path to a directory where pdflatex executable is located. Example: -latex /src/main/resources/texlive/bin", converter = LatexPathConverter.class)
 	@Getter File latex;
 	
+	@Parameter(names = "-pigeon", description = "(optional) use PigeonCAD instead of DNAplotlib")
+	@Getter private boolean withPigeon = false;
+	
+	@Parameter(names = "-dnaplotlib", description = "Path to a directory where dnaplotlib quick.py script is located. Example: -dnaplotlib /dnaplotlib/apps/", converter = DNAplotlibPathConverter.class)
+	@Getter File dnaplotlib;
+	
 }

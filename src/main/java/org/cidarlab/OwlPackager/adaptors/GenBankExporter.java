@@ -28,10 +28,10 @@ public class GenBankExporter {
 
         int spaces = 28 - uniqueId.length() - sequenceLength.length();
         String spacer = String.format("%"+spaces+"s", "");
-        gbkFlatFile += "LOCUS       " + uniqueId + spacer + sequenceLength + " bp    DNA     linear   UNK " + getDate();
+        gbkFlatFile += "LOCUS       " + uniqueId + spacer + sequenceLength + " bp    DNA     linear   SYN " + getDate();
         gbkFlatFile += "\n"+"DEFINITION  "+ desc;
         gbkFlatFile += "\nACCESSION   " + uniqueId;
-        gbkFlatFile += "\n" + "VERSION     "+".";
+        gbkFlatFile += "\n" + "VERSION     "+uniqueId+".1";
         gbkFlatFile += "\nKEYWORDS    "+".";
         gbkFlatFile += "\nSOURCE      "+".";
         gbkFlatFile += "\n  ORGANISM  "+".";
@@ -70,7 +70,7 @@ public class GenBankExporter {
 		        		gbkFlatFile +="\n                     /partial";
 		        		gbkFlatFile +="\n                     /note=\"partial gene\"";
 		        	} else {
-		        		//generate /translation="<ProteinSequence>" annotation
+		        		//here I generate this GenBank annotation: /translation="<ProteinSequence>"
 		        		gbkFlatFile += getProteinToAnnotation(protein);
 		        	}
 		        	
