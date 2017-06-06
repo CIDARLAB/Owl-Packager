@@ -19,13 +19,33 @@ public class GeneticConstruct {
 		this.name = name;
 		for(Part part:partList){
 			this.sequence += part.getPartProperties().getSequence();
-			Coordinate coord = new Coordinate(counter+1, counter+part.getPartProperties().getSequence().length());
+			Coordinate coord = new Coordinate(part.getPartInstance(), counter+1, counter+part.getPartProperties().getSequence().length());
 			coords.add(coord);
 			counter += part.getPartProperties().getSequence().length();
 		}
 		this.coordinateList = coords;
 		this.partList = partList;		
 		
+	}
+	
+	public int getPartStartX(String partInstance){
+		
+		for(Coordinate coord: this.getCoordinateList()) {
+			if(coord != null && coord.getPartInstance().equalsIgnoreCase(partInstance)) {
+				return coord.getStartX();
+			}
+		}
+		return 0;
+	}
+	
+	public int getPartEndX(String partInstance){
+		
+		for(Coordinate coord: this.getCoordinateList()) {
+			if(coord != null && coord.getPartInstance() == partInstance) {
+				return coord.getEndX();
+			}
+		}
+		return 0;
 	}
 	
 	@Override

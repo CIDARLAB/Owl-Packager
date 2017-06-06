@@ -6,7 +6,6 @@ import java.util.List;
 import org.cidarlab.OwlPackager.Util.Utilities;
 import org.cidarlab.OwlPackager.adaptors.DeviceSplitter;
 import org.cidarlab.OwlPackager.dom.GeneticConstruct;
-import org.cidarlab.OwlPackager.dom.Orientation;
 import org.cidarlab.OwlPackager.dom.Part;
 import org.cidarlab.OwlPackager.dom.PartProperty;
 import org.cidarlab.OwlPackager.dom.PartType;
@@ -32,10 +31,10 @@ public class ParserTest {
 			// Send deviceContents to ComponentFactory
 
 			PartProperty pp = new PartProperty("pBla", "AAATTT");
-			Part part = new Part("p1", PartType.PROMOTER, Orientation.FORWARD, pp);
+			Part part = new Part("p1", PartType.PROMOTER, false, pp);
 			
 			PartProperty pp2 = new PartProperty("pBla", "GGGCCC");
-			Part part2 = new Part("cds1", PartType.CDS, Orientation.FORWARD, pp2);
+			Part part2 = new Part("cds1", PartType.CDS, false, pp2);
 			
 			List<Part> pl = new ArrayList<>();
 			pl.add(part);

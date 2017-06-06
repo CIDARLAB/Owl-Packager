@@ -173,7 +173,7 @@ public class OwlPackager {
 		Map<String,String> images = new LinkedHashMap<String, String>();
 		if(cmd.isWithPigeon()){
 			// upload Pigeon images and save them in the project folder
-			System.out.println("withPigeon is "+cmd.isWithPigeon());
+			//System.out.println("withPigeon is "+cmd.isWithPigeon());
 			images = PigeonClient.generateFile(pigeonMap, outputDir, limit);
 		} else {
 			//generate DNAplotlib images

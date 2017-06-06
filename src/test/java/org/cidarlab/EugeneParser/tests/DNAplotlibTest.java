@@ -11,7 +11,6 @@ import org.cidarlab.OwlPackager.Util.ShellExec;
 import org.cidarlab.OwlPackager.Util.Utilities;
 import org.cidarlab.OwlPackager.adaptors.DNAplotlibClient;
 import org.cidarlab.OwlPackager.dom.GeneticConstruct;
-import org.cidarlab.OwlPackager.dom.Orientation;
 import org.cidarlab.OwlPackager.dom.Part;
 import org.cidarlab.OwlPackager.dom.PartProperty;
 import org.cidarlab.OwlPackager.dom.PartType;
@@ -23,19 +22,19 @@ public class DNAplotlibTest {
 	public void testDNAplotlib(){
 
 			PartProperty pp = new PartProperty("pBla", "AAATTT");
-			Part part = new Part("p1", PartType.PROMOTER, Orientation.FORWARD, pp);
+			Part part = new Part("p1", PartType.PROMOTER, false, pp);
 			
 			PartProperty pp2 = new PartProperty("p1", "GGGCCC");
-			Part part2 = new Part("ri1", PartType.RIBOZYME, Orientation.FORWARD, pp2);
+			Part part2 = new Part("ri1", PartType.RIBOZYME, false, pp2);
 			
 			PartProperty pp3 = new PartProperty("p2", "GGGCCC");
-			Part part3= new Part("rbs1", PartType.RBS, Orientation.FORWARD, pp3);
+			Part part3= new Part("rbs1", PartType.RBS, false, pp3);
 			
 			PartProperty pp4 = new PartProperty("p3", "GGGCCC");
-			Part part4 = new Part("g1", PartType.CDS, Orientation.FORWARD, pp4);
+			Part part4 = new Part("g1", PartType.CDS, false, pp4);
 			
 			PartProperty pp5 = new PartProperty("p4", "GGGCCC");
-			Part part5 = new Part("t1", PartType.TERMINATOR, Orientation.FORWARD, pp5);
+			Part part5 = new Part("t1", PartType.TERMINATOR, false, pp5);
 			
 			List<Part> pl = new ArrayList<>();
 			pl.add(part);

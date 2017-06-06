@@ -6,7 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.cidarlab.OwlPackager.dom.GeneticConstruct;
-import org.cidarlab.OwlPackager.dom.Orientation;
 import org.cidarlab.OwlPackager.dom.Part;
 import org.cidarlab.OwlPackager.dom.PartProperty;
 import org.cidarlab.OwlPackager.dom.PartType;
@@ -43,15 +42,15 @@ public class GeneticConstructFactory {
 	
 	/**
 	* This private method checks if a String, containing Eugene part, starts with "+" or "-"
-	* and returns enum Orientation.
+	* and returns false for reverse part and true for forward part.
 	* 
 	* @param lineWithPart ... file line containing a Part, e.g., "+Promoter p1 (.SEQUENCE("ATGC")..."
 	*/
-	private static final Orientation findOrientation(String lineWithPart) {
+	private static final boolean findOrientation(String lineWithPart) {
 		if(lineWithPart.startsWith("+")){
-			return Orientation.FORWARD;
+			return false;
 		} else if (lineWithPart.startsWith("-")){
-			return Orientation.REVERSE;
+			return true;
 		} else {
 			throw new IllegalArgumentException("Unknown part orientation: " +lineWithPart);
 		}
