@@ -74,8 +74,9 @@ public class SbolExporter {
 		device.createAnnotation(new QName(sbol.getDefaultURIprefix(), "wasGeneratedBy", "prov"), "Owl");
 	
 		for(Part part: construct.getPartList()){
-			Component component = device.createComponent(part.getPartProperties().getName(), AccessType.PRIVATE, sbol.getComponentDefinition(part.getPartProperties().getName(), version).getIdentity());
-			SequenceAnnotation sa = device.createSequenceAnnotation(part.getPartProperties().getName()+"_"+construct.getName(), part.getPartInstance(), construct.getPartStartX(part.getPartInstance()), construct.getPartEndX(part.getPartInstance()), OrientationType.INLINE);
+			int partPosition = construct.getPartList().indexOf(part)+1;
+			Component component = device.createComponent(construct.getName()+"_"+part.getPartProperties().getName()+"_"+partPosition, AccessType.PRIVATE, sbol.getComponentDefinition(part.getPartProperties().getName(), version).getIdentity());
+			SequenceAnnotation sa = device.createSequenceAnnotation(construct.getName()+"_"+part.getPartProperties().getName()+"_"+partPosition+"_sa", "position_"+partPosition, construct.getPartStartX(construct.getPartList().indexOf(part)+1), construct.getPartEndX(construct.getPartList().indexOf(part)+1), OrientationType.INLINE);
 			sa.setComponent(component.getIdentity());
 		}
 		return sbol;

@@ -17,7 +17,6 @@ import org.sbolstandard.core2.Component;
 import org.sbolstandard.core2.ComponentDefinition;
 import org.sbolstandard.core2.SBOLConversionException;
 import org.sbolstandard.core2.SBOLDocument;
-import org.sbolstandard.core2.SBOLReader;
 import org.sbolstandard.core2.SBOLValidationException;
 import org.sbolstandard.core2.Sequence;
 import org.sbolstandard.core2.SequenceOntology;

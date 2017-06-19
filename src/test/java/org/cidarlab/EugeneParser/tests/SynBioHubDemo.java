@@ -62,6 +62,7 @@ public class SynBioHubDemo {
     	    	   	
     	System.out.println("OWL reads Eugene results...");
     	
+    	//File file = new File(Utilities.getResourcesFilepath()+"Fang_Monocistronic.out");
     	File file = new File(Utilities.getResourcesFilepath()+"Gate.out");
     	if(file.exists()){
     		System.out.println(file.getAbsolutePath());
@@ -124,7 +125,7 @@ public class SynBioHubDemo {
 			System.out.println("\n=====================\nGenerated SBOL file is valid.");
 		}
 		
-		SBOLWriter.write(sdoc, Utilities.getResourcesFilepath()+"failedToUploadSBOL.xml");
+		//SBOLWriter.write(sdoc, Utilities.getResourcesFilepath()+"failedToUploadSBOL.xml");
 		
 		// SUBMIT to SynBioHub
 		instance.submit("Owl_SynbiohubDemo2", "1.0", "Owl_SynbiohubDemo2", "Cello gates designed by Owl", "27034378", "Synbiohub_Owl", "1", sdoc);

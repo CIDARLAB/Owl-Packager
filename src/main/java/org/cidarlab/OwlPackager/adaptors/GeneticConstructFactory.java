@@ -30,7 +30,7 @@ public class GeneticConstructFactory {
 			Matcher matcher = pattern.matcher(s);
 			
 			while (matcher.find()) {
-				PartProperty properties = new PartProperty(matcher.group(4), matcher.group(3));
+				PartProperty properties = new PartProperty(matcher.group(4).replaceAll("\\s","").replaceAll(":", "_"), matcher.group(3));
 				Part part = new Part(matcher.group(2), findPartType(matcher.group(1)), findOrientation(s), properties);
 				partList.add(part);
 			}
